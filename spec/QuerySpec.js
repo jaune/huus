@@ -1,4 +1,4 @@
-describe('Query.parse', function() {
+describe('huus.Query.parse', function() {
 	var query;
 
 	beforeEach(function() {

@@ -6,6 +6,8 @@ var Cursor = function (collection, query) {
 	this.collection_ = collection;
 
 	this.result_ = null;
+
+	this.offset_ = 0;
 };
 
 Object.defineProperty(Cursor.prototype, 'current', {

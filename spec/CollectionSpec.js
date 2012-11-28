@@ -1,4 +1,4 @@
-describe('Collection.insert', function() {
+describe('huus.Collection.insert', function() {
 	var collection;
 
 	beforeEach(function() {
@@ -29,7 +29,7 @@ describe('Collection.insert', function() {
 
 });
 
-describe('Collection.find', function() {
+describe('huus.Collection.find', function() {
 	var collection;
 
 	beforeEach(function() {
@@ -41,15 +41,24 @@ describe('Collection.find', function() {
 	});
 
 	it('simplest find', function() {
-		
 		var cursor = collection.find({ name : '0001'});
-
-		console.debug(cursor);
-/*
-		expect(cursor.length).toEqual(1);
-		expect(cursor.current.name).toEqual('f0f');
-		*/
 	});
 
+});
+
+describe('huus.Collection.count', function() {
+	var collection;
+
+	beforeEach(function() {
+		collection = new huus.Collection();
+
+		collection.insert({name: '0001', test : 'bob'});
+		collection.insert({name: '1000'});
+		collection.insert({name: 'f0f'});
+	});
+
+	it('Simplest count.', function() {
+		expect(collection.count()).toEqual(3);
+	});
 
 });

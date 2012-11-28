@@ -1,8 +1,7 @@
 Requirements
 ============
 
-* http://eightmedia.github.com/hammer.js/
-* http://zeptojs.com/
+* http://pivotal.github.com/jasmine/
 
 Install
 =======

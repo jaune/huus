@@ -5,13 +5,20 @@ var Cursor = window.huus.Cursor;
 var Query = window.huus.Query;
 
 var Collection = function () {
-	this.index_prefix_ = Date.now().toString(36);
-	this.index_counter_ = Math.round(42 * Math.random());
+	this.id_prefix_ = Date.now().toString(36);
+	this.id_counter_ = Math.round(42 * Math.random());
 	
+	this.counter_ = 0;
 	this.documents_ = {};
 };
 
-// Set.prototype.items_ = {};
+Collection.prototype.generateId_ = function () {
+	return this.id_prefix_+':'+Date.now().toString(36)+':'+(this.id_counter_++);
+};
+
+Collection.prototype.count =  function () {
+	return this.counter_;
+};
 
 Collection.prototype.find =  function (query) {
 
@@ -25,8 +32,6 @@ Collection.prototype.find =  function (query) {
 		query: q
 	});
 
-	console.debug(ids);
-
 	return ids.map(function (id) {
 		return this.documents[id];
 	}, {
@@ -34,15 +39,10 @@ Collection.prototype.find =  function (query) {
 	});
 };
 
-Collection.prototype.generateIndex = function () {
-	return this.index_prefix_+':'+Date.now().toString(36)+':'+(this.index_counter_++);
-};
-
 Collection.prototype.insert =  function (d) {
-	var s = window.JSON.stringify(d);
 	var safe = null;
 	try {
-		safe = window.JSON.parse(s);
+		safe = window.JSON.parse(window.JSON.stringify(d));
 	} catch (error) {
 		throw new TypeError('TODO');
 	}
@@ -54,13 +54,12 @@ Collection.prototype.insert =  function (d) {
 			throw new TypeError('TODO');
 		}
 	} else {
-		safe._id = this.generateIndex();
+		safe._id = this.generateId_();
 	}
 	this.documents_[safe._id] = safe;
-	this.index_counter_++;
+	this.counter_++;
 	return safe;
 };
-
 
 return Collection;
 
