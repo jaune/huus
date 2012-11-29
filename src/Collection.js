@@ -20,8 +20,24 @@ Collection.prototype.count =  function () {
 	return this.counter_;
 };
 
-Collection.prototype.find =  function (query) {
+Collection.prototype.forEach = function (callback) {
+	Object.keys(this.documents_).forEach(function (id) {
+		this.callback(this.documents[id]);
+	}, {
+		documents : this.documents_,
+		callback : callback
+	});
+};
 
+Collection.prototype.findOne =  function (query) {
+	var documents = this.find(query);
+	if (documents.length <= 0) {
+		return null;
+	}
+	return documents.pop();
+};
+
+Collection.prototype.find =  function (query) {
 	var q = new Query();
 	q.parse(query);
 
