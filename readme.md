@@ -1,7 +1,7 @@
 Requirements
 ============
 
-* http://pivotal.github.com/jasmine/
+* https://jasmine.github.io/
 
 Install
 =======
